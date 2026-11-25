@@ -1,0 +1,12 @@
+{
+  "name": "GOAL WORLD",
+  "short_name": "GOAL WORLD",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#071426",
+  "theme_color": "#071426",
+  "description": "The world of football in your hands",
+  "lang": "ar"
+}
