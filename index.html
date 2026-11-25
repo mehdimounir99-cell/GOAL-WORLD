@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#071426">
+  <meta name="description" content="GOAL WORLD - عالم كرة القدم">
+  <link rel="manifest" href="manifest.webmanifest">
+  <title>GOAL WORLD</title>
+  <style>
+    :root{color-scheme:dark;--bg:#071426;--panel:#10243d;--blue:#1677d2;--gold:#f4c75e;--muted:#a9bad0}
+    *{box-sizing:border-box}body{margin:0;background:linear-gradient(160deg,#071426,#0b1b30);color:#fff;font-family:Arial,sans-serif}
+    header{padding:24px 18px;background:#091a2e;border-bottom:1px solid #1d3c5e}
+    h1{margin:0;color:var(--gold);letter-spacing:1px}header p{color:var(--muted);margin:8px 0 0}
+    main{max-width:900px;margin:auto;padding:18px}.bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+    button,select{background:var(--panel);color:#fff;border:1px solid #315477;border-radius:10px;padding:10px 14px}
+    button:focus,select:focus{outline:2px solid var(--gold)}
+    .hero{background:linear-gradient(120deg,#12365b,#0e2340);padding:20px;border-radius:16px;border:1px solid #28517a}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:14px}
+    .card{background:var(--panel);padding:16px;border-radius:14px;border:1px solid #234362}
+    .muted{color:var(--muted);font-size:14px}.tag{color:var(--gold);font-size:12px}
+    footer{text-align:center;color:var(--muted);padding:25px}
+  </style>
+</head>
+<body>
+<header><h1>⚽ GOAL WORLD</h1><p id="subtitle">عالم كرة القدم بين يديك</p></header>
+<main>
+  <div class="bar">
+    <select id="language" aria-label="Language">
+      <option value="ar">العربية</option><option value="en">English</option><option value="fr">Français</option>
+    </select>
+    <button id="install" hidden>تثبيت التطبيق</button>
+  </div>
+  <section class="hero">
+    <div class="tag">FOOTBALL • WORLDWIDE</div>
+    <h2 id="welcome">كل كرة القدم في مكان واحد</h2>
+    <p id="intro">تابع المباريات والأخبار والإحصائيات من واجهة واحدة.</p>
+    <p class="muted" id="notice">هذه نسخة تجريبية: البيانات المعروضة أدناه أمثلة وليست نتائج مباشرة.</p>
+  </section>
+  <section class="grid">
+    <article class="card"><h3 id="matches">⚽ المباريات</h3><p class="muted" id="matchText">سيتم عرض المباريات الحقيقية بعد ربط مزود بيانات مرخّص.</p></article>
+    <article class="card"><h3 id="news">📰 الأخبار</h3><p class="muted" id="newsText">سيتم ربط الأخبار بمصادر موثوقة مع احترام حقوق النشر.</p></article>
+    <article class="card"><h3 id="stats">📊 الإحصائيات</h3><p class="muted" id="statsText">ترتيب الدوريات وإحصائيات الفرق واللاعبين.</p></article>
+    <article class="card"><h3 id="premium">⭐ GOAL+ المميز</h3><p class="muted" id="premiumText">مساحة مستقبلية لميزات العضوية المدفوعة. الدفع غير مفعّل حالياً.</p></article>
+  </section>
+</main>
+<footer>GOAL WORLD © <span id="year"></span> — النسخة التجريبية</footer>
+<script>
+const words={
+ ar:{subtitle:"عالم كرة القدم بين يديك",welcome:"كل كرة القدم في مكان واحد",intro:"تابع المباريات والأخبار والإحصائيات من واجهة واحدة.",notice:"هذه نسخة تجريبية: البيانات المعروضة أدناه أمثلة وليست نتائج مباشرة.",matches:"⚽ المباريات",matchText:"سيتم عرض المباريات الحقيقية بعد ربط مزود بيانات مرخّص.",news:"📰 الأخبار",newsText:"سيتم ربط الأخبار بمصادر موثوقة مع احترام حقوق النشر.",stats:"📊 الإحصائيات",statsText:"ترتيب الدوريات وإحصائيات الفرق واللاعبين.",premium:"⭐ GOAL+ المميز",premiumText:"مساحة مستقبلية لميزات العضوية المدفوعة. الدفع غير مفعّل حالياً.",install:"تثبيت التطبيق"},
+ en:{subtitle:"The world of football in your hands",welcome:"All football in one place",intro:"Follow matches, news and statistics from one dashboard.",notice:"Demo version: the content below is placeholder information, not live scores.",matches:"⚽ Matches",matchText:"Live fixtures will appear after connecting a licensed data provider.",news:"📰 News",newsText:"News will be connected from trusted sources while respecting copyright.",stats:"📊 Statistics",statsText:"League tables and team and player statistics.",premium:"⭐ GOAL+ Premium",premiumText:"Reserved for future premium features. Payments are not enabled.",install:"Install app"},
+ fr:{subtitle:"Le monde du football à portée de main",welcome:"Tout le football au même endroit",intro:"Suivez les matchs, actualités et statistiques.",notice:"Version démo : les contenus ci-dessous sont des exemples, pas des scores en direct.",matches:"⚽ Matchs",matchText:"Les rencontres réelles seront affichées après connexion à un fournisseur agréé.",news:"📰 Actualités",newsText:"Les actualités proviendront de sources fiables dans le respect du droit d'auteur.",stats:"📊 Statistiques",statsText:"Classements et statistiques des équipes et joueurs.",premium:"⭐ GOAL+ Premium",premiumText:"Espace réservé aux futures options payantes. Paiement non activé.",install:"Installer l’application"}
+};
+const ids=Object.keys(words.ar);
+function setLang(lang){document.documentElement.lang=lang;document.documentElement.dir=lang==="ar"?"rtl":"ltr";ids.forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=words[lang][id]});}
+document.getElementById("language").addEventListener("change",e=>setLang(e.target.value));
+document.getElementById("year").textContent=new Date().getFullYear();
+if("serviceWorker" in navigator && location.protocol.startsWith("http")) navigator.serviceWorker.register("./sw.js").catch(()=>{});
+let promptEvent;window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();promptEvent=e;const b=document.getElementById("install");b.hidden=false;b.onclick=async()=>{promptEvent.prompt();promptEvent=null;b.hidden=true}});
+</script>
+</body></html>
